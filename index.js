@@ -32,6 +32,28 @@ class BinarySearchTree {
       return this.inserNode(root.right, newNode);
     }
   }
+
+  search(value) {
+    if (!this.root) {
+      return false;
+    }
+    if (this.root.value === value) {
+      return true;
+    }
+    return this.searchNode(this.root, value);
+  }
+
+  searchNode(root, value) {
+    if (value < root.value) {
+      return this.searchNode(root.left, value);
+    }
+    return this.searchNode(root.right, value);
+  }
 }
 
 const bst = new BinarySearchTree();
+bst.insert(30);
+bst.insert(20);
+bst.insert(50);
+
+console.log(bst.search(20));
