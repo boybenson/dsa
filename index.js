@@ -33,27 +33,18 @@ class BinarySearchTree {
     }
   }
 
-  preOrder(root) {
-    if (root) {
-      console.log(root.value);
-      this.preOrder(root.left);
-      this.preOrder(root.right);
-    }
-  }
-
-  inOrder(root) {
-    if (root) {
-      this.inOrder(root.left);
-      console.log(root.value);
-      this.inOrder(root.right);
-    }
-  }
-
-  postOrder(root) {
-    if (root) {
-      this.inOrder(root.left);
-      this.inOrder(root.right);
-      console.log(root.value);
+  levelOrder() {
+    const queue = [];
+    queue.push(this.root);
+    while (queue.length) {
+      let curr = queue.shift();
+      console.log(curr.value);
+      if (curr.left) {
+        queue.push(curr.left);
+      }
+      if (curr.right) {
+        queue.push(curr.right);
+      }
     }
   }
 }
@@ -64,5 +55,3 @@ bst.insert(10);
 bst.insert(60);
 bst.insert(18);
 bst.insert(32);
-
-console.log(bst.inOrder(bst.root));
