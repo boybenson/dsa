@@ -1,42 +1,52 @@
-class HashTable {
-  constructor(size) {
-    this.table = new Array(size);
-    this.size = size;
-  }
-
-  hash(key) {
-    let total = 0;
-    for (let i = 0; i < key.length; i++) {
-      total += key.charCodeAt(i);
-    }
-    return total % this.size;
-  }
-
-  set(key, value) {
-    const index = this.hash(key);
-    this.table[index] = value;
-  }
-
-  get(key) {
-    const index = this.hash(key);
-    return this.table[index];
-  }
-
-  remove(key) {
-    const index = this.hash(key);
-    this.table[index] = undefined;
-  }
-
-  display() {
-    for (let i = 0; i < this.table.length; i++) {
-      if (this.table[i]) {
-        console.log(i, this.table[i]);
-      }
-    }
+class TrieNode {
+  constructor() {
+    this.children = {};
+    this.isEndOfWord = false;
   }
 }
 
-const table = new HashTable(50);
-table.set("name", "Paul");
-table.set("age", 40);
-table.display();
+class Trie {
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word) {
+    let node = this.root;
+    for (let i = 0; i < word.length; i++) {
+      let char = word[i];
+      if (!node.children[char]) {
+        node.children[char] = new TrieNode();
+      }
+      node = node.children[char];
+    }
+    node.isEndOfWord = true;
+  }
+
+  search(word) {
+    let node = this.root;
+    for (let i = 0; i < word.length; i++) {
+      let char = word[i];
+      if (!node.children[char]) {
+        return false;
+      }
+      node = node.children[char];
+    }
+
+    return node.isEndOfWord;
+  }
+}
+
+const trie = new Trie();
+
+const articleTitles = [
+  "javascript",
+  "Advanced JavaScript Techniques",
+  "Introduction to React",
+  "Getting Started with Node.js",
+];
+
+articleTitles.forEach((title) => trie.insert(title.toLowerCase()));
+
+const findWord = trie.search("javascript");
+
+console.log(findWord);
