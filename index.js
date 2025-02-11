@@ -13,6 +13,8 @@ const bubbleSort = (arr) => {
         swapped = true;
       }
     }
+
+    if (!swapped) break;
   }
 
   return arr;
