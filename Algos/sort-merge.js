@@ -22,4 +22,3 @@ const merge = (leftArr, rightArr) => {
 };
 
 console.log(mergeSort([10, -2, 20, 18, -6, 3]));
-// changes
